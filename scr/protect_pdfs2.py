@@ -98,6 +98,7 @@ def protect_pdf(input_path, output_path, password):
             # pdf.docinfo.Project = infos['project']
 
             # Protège en écriture (permet la lecture sans mot de passe)
+            # AUTORISE la signature et les annotations
             pdf.save(
                 output_path,
                 encryption=pikepdf.Encryption(
@@ -106,10 +107,10 @@ def protect_pdf(input_path, output_path, password):
                     allow=pikepdf.Permissions(
                         accessibility=True,
                         extract=True,
-                        modify_annotation=False,
+                        modify_annotation=True,   # ✅ AUTORISE les signatures et annotations
                         modify_assembly=False,
-                        modify_form=False,
-                        modify_other=False,
+                        modify_form=True,         # ✅ AUTORISE le remplissage de formulaires
+                        modify_other=False,       # ❌ Interdit la modification du contenu
                         print_lowres=True,
                         print_highres=True
                     )
